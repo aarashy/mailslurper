@@ -132,20 +132,24 @@ func (config *Configuration) GetPublicServiceURL() string {
 
 /*
 GetPublicWWWURL returns a full protocol, address and port for the web application
+The `config.WWWPublicURL` parameter should either be passed as empty (to allow relative addressing),
+or given as a fully qualified domain with protocol and port, 
+i.e. `http(s)://{config.WWWAddress}:{config.WWWPort}`
 */
 func (config *Configuration) GetPublicWWWURL() string {
-	if config.WWWPublicURL != "" {
-		return config.WWWPublicURL
-	}
+	return config.WWWPublicURL
+	// NOTE: The below code has been commented out because allowing empty string 
+	// as WWWPublicURL was desireable to facilitate relative addressing.
 
-	result := "http"
-
-	if config.AdminCertFile != "" && config.AdminKeyFile != "" {
-		result += "s"
-	}
-
-	result += fmt.Sprintf("://%s:%d", config.WWWAddress, config.WWWPort)
-	return result
+	// if config.WWWPublicURL != "" {
+	// 	return config.WWWPublicURL
+	// }
+	// result := "http"
+	// if config.AdminCertFile != "" && config.AdminKeyFile != "" {
+	// 	result += "s"
+	// }
+	// result += fmt.Sprintf("://%s:%d", config.WWWAddress, config.WWWPort)
+	// return result
 }
 
 /*
